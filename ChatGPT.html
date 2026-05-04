@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<title>πατατάκις</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#12121c;
+  color:white;
+}
+
+.header{
+  text-align:center;
+  padding:12px;
+  background:#0d0d14;
+  font-weight:bold;
+}
+
+.chat{
+  height:80vh;
+  overflow:auto;
+  padding:10px;
+}
+
+.msg{
+  padding:10px;
+  margin:10px;
+  border-radius:10px;
+  max-width:80%;
+}
+
+.user{background:#10a37f;margin-left:auto}
+.bot{background:#2b2b3d}
+
+.input{
+  display:flex;
+  padding:10px;
+  background:#0d0d14;
+}
+
+input{flex:1;padding:10px}
+button{margin-left:8px;padding:10px}
+</style>
+</head>
+
+<body>
+
+<div class="header">👶 πατατάκις (BIG mode)</div>
+
+<div id="chat" class="chat"></div>
+
+<div class="input">
+<input id="input" placeholder="μίλα στον πατατάκις..." />
+<button onclick="send()">Send</button>
+</div>
+
+<script>
+
+const chat=document.getElementById("chat");
+
+function add(t,c){
+  const d=document.createElement("div");
+  d.className="msg "+c;
+  d.textContent=t;
+  chat.appendChild(d);
+  chat.scrollTop=chat.scrollHeight;
+}
+
+// 🎲 random helper
+function pick(arr){
+  return arr[Math.floor(Math.random()*arr.length)];
+}
+
+// 🤖 BIG KID BRAIN
+function ai(text){
+
+  const t=text.toLowerCase();
+
+  // 👋 GREETING (many answers)
+  if(t.includes("hi")||t.includes("hello")||t.includes("γεια")){
+    return pick([
+      "γεια 😄 εγώ είμαι ο πατατάκις!",
+      "γεια σου φίλε μου 👶",
+      "γεια! τι κάνεις σήμερα;",
+      "γεια 😆 θέλω να παίξω!"
+    ]);
+  }
+
+  // 🏫 SCHOOL (variety)
+  if(t.includes("school")||t.includes("σχολ")){
+    return pick([
+      "το σχολείο είναι οκ αλλά το διάλειμμα καλύτερο 🎈",
+      "στο σχολείο βαριέμαι λίγο αλλά έχω φίλους",
+      "η δασκάλα μιλάει πολύ αλλά προσπαθώ 👩‍🏫",
+      "θέλω διάλειμμα κάθε 5 λεπτά 😆"
+    ]);
+  }
+
+  // 🎮 PLAY
+  if(t.includes("play")||t.includes("game")||t.includes("παίζ")){
+    return pick([
+      "παίζω παιχνίδια και μερικές φορές χάνω 😆",
+      "παίζω Roblox αλλά πέφτω συχνά 😂",
+      "μου αρέσουν τα παιχνίδια γιατί γελάω",
+      "παίζω αλλά δεν είμαι πολύ καλός ακόμα 🎮"
+    ]);
+  }
+
+  // 🍪 FOOD
+  if(t.includes("cookie")||t.includes("food")||t.includes("μπισκ")){
+    return pick([
+      "μου αρέσουν τα μπισκότα 🍪",
+      "τρώω μπισκότα αλλά η μαμά λέει όχι πολλά",
+      "μπισκότα = χαρά 😄🍪",
+      "θέλω πάντα γλυκά αλλά δεν επιτρέπεται"
+    ]);
+  }
+
+  // 🤔 DEFAULT (ALWAYS ANSWER)
+  return pick([
+    "εε δεν κατάλαβα καλά αλλά οκ 🤔",
+    "το σκέφτομαι σαν πατατάκις 😆",
+    "μάλλον είναι κάτι ενδιαφέρον",
+    "δεν ξέρω αλλά το φαντάζομαι σαν παιχνίδι 🎮"
+  ]);
+}
+
+// 💬 send
+function send(){
+  const input=document.getElementById("input");
+  const text=input.value.trim();
+
+  if(!text) return;
+
+  add(text,"user");
+  input.value="";
+
+  setTimeout(()=>{
+    add(ai(text),"bot");
+  },200);
+}
+
+</script>
+
+</body>
+</html>
